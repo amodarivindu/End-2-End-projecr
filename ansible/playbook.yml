@@ -13,7 +13,7 @@
         state: started
 
     - name: Pull Docker Image
-      command: docker pull yourdockerhub/app:latest
+      command: docker pull amodarivindu/app:latest
 
     - name: Run Container
-      command: docker run -d -p 80:5000 yourdockerhub/app:latest
+      command: docker run -d -p 80:5000 amodarivindu/app:latest
