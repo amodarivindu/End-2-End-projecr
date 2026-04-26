@@ -15,7 +15,9 @@ pipeline {
 
         stage('Push Image') {
             steps {
-                bat 'docker push amodarivindu/myapp_new'
+                withCredentials([usernamePassword(credentialsId: 'docker-creds', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    bat "docker login -u %USER% -p %PASS%"
+                    bat "docker push amodarivindu/myapp_new"
             }
         }
 
