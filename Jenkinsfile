@@ -18,9 +18,10 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'docker-creds', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
                     bat "docker login -u %USER% -p %PASS%"
                     bat "docker push amodarivindu/myapp_new"
+                }
             }
         }
-
+        
         stage('Terraform Init') {
             steps {
                 dir('terraform') {
