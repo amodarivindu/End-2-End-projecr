@@ -21,7 +21,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Terraform Init') {
             steps {
                 dir('terraform') {
@@ -32,8 +32,15 @@ pipeline {
 
         stage('Terraform Apply') {
             steps {
-                dir('terraform') {
-                    bat 'terraform apply -auto-approve'
+                withCredentials([
+                    string(credentialsId: 'aws-access-key', variable: 'AWS_ACCESS_KEY_ID'),
+                    string(credentialsId: 'aws-secret-key', variable: 'AWS_SECRET_ACCESS_KEY')
+                ]) {
+                    bat '''
+                    set AWS_ACCESS_KEY_ID=%AWS_ACCESS_KEY_ID%
+                    set AWS_SECRET_ACCESS_KEY=%AWS_SECRET_ACCESS_KEY%
+                    terraform apply -auto-approve
+                    '''
                 }
             }
         }
