@@ -9,14 +9,13 @@ terraform {
 }
 
 provider "aws" {
-  region = "ap-south-1"
+  region = "us-east-1"
 }
 
 resource "aws_instance" "app_server" {
   count         = 2   # 🔥 multiple EC2s
-  ami           = "ami-0abcdef1234567890"
+  ami           = "ami-098e39bafa7e7303d"
   instance_type = "t2.micro"
-  key_name      = "my-key"
 
   tags = {
     Name = "AppServer-${count.index}"
