@@ -9,13 +9,13 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                bat 'docker build -t myapp_new ./app'
+                bat 'docker build -t amodarivindu/myapp_new ./app'
             }
         }
 
         stage('Push Image') {
             steps {
-                bat 'docker push myapp_new'
+                bat 'docker push amodarivindu/myapp_new'
             }
         }
 
