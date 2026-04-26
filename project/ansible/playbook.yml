@@ -1,0 +1,19 @@
+- hosts: web
+  become: true
+
+  tasks:
+    - name: Install Docker
+      yum:
+        name: docker
+        state: present
+
+    - name: Start Docker
+      service:
+        name: docker
+        state: started
+
+    - name: Pull Docker Image
+      command: docker pull yourdockerhub/app:latest
+
+    - name: Run Container
+      command: docker run -d -p 80:5000 yourdockerhub/app:latest
