@@ -9,20 +9,20 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t $IMAGE .'
+                bat 'docker build -t $IMAGE .'
             }
         }
 
         stage('Push Image') {
             steps {
-                sh 'docker push $IMAGE'
+                bat 'docker push $IMAGE'
             }
         }
 
         stage('Terraform Init') {
             steps {
                 dir('terraform') {
-                    sh 'terraform init'
+                    bat 'terraform init'
                 }
             }
         }
@@ -30,7 +30,7 @@ pipeline {
         stage('Terraform Apply') {
             steps {
                 dir('terraform') {
-                    sh 'terraform apply -auto-approve'
+                    bat 'terraform apply -auto-approve'
                 }
             }
         }
@@ -38,7 +38,7 @@ pipeline {
         stage('Deploy with Ansible') {
             steps {
                 dir('ansible') {
-                    sh 'ansible-playbook -i inventory.ini playbook.yml'
+                    bat 'ansible-playbook -i inventory.ini playbook.yml'
                 }
             }
         }
