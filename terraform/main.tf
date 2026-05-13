@@ -12,6 +12,11 @@ provider "aws" {
   region = "us-east-1"
 }
 
+resource "local_file" "ansible_inventory" {
+  filename = "${path.module}/../ansible/inventory.ini"
+  content  = "[web]\n${join("\n", aws_instance.app_server[*].public_ip)}\n"
+}
+
 # VPC
 resource "aws_vpc" "main" {
   cidr_block = "10.0.0.0/16"
